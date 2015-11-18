@@ -136,9 +136,9 @@
 					 <field name="is_trailer" string="Is Trailer" 
 						help="Mark this if the vehicle is a trailer"/>
 				</xpath>
-				<xpath expr="/form/sheet/notebook/page[@string='General Properties']"
+				<xpath expr="/form/sheet/group[@string='General Properties']"
 					position="after">
-					<page string="Transport sales">
+					<group string="Transport sales">
 						<field name="sales_order_ids" readonly="1">
 							<tree editable="bottom">
 								<field name="sale_order_id" />
@@ -149,7 +149,7 @@
 								<field name="return_date" />
 							</tree>
 						</field>
-					</page>
+					</group>
 				</xpath>
 			</field>
 		</record>
