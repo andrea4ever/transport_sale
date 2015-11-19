@@ -1,54 +1,38 @@
-##############################################################################
-#
-#    Odoo module for Transport Sale
-#    Copyright (C) 2004-2010 Alien Group (<http://www.alien-group.com>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp.osv import fields, osv
-from openerp.tools.translate import _
+# -*- coding: utf-8 -*-
+# © 2004-2010 Alien Group (<http://www.alien-group.com>).
+# © 2015 Apulia Software 
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-class sale_order_fleet_vehicle(osv.osv):
+from openerp import models, fields, api, _
+
+
+class SaleOrderFleetVehicle(models.Model):
+
     _name = 'sale.order.fleet_vehicle'
+
     _description = 'All sales order and associated vehicles'
-    _columns = {
-             'sale_order_id':fields.many2one(obj='sale.order', string='Sale Order',
-                                            ondelete='cascade'),
-             'sales_date': fields.date(string='Sales Date'),             
-             'partner_departure_id': fields.many2one(obj='res.partner', string='From'),
-             'partner_destination_id': fields.many2one(obj='res.partner', string='To'),
-             'delivery_date': fields.date(string='Delivery Date',
-                                          help='The date that will start to transport'),       
-             'return_date': fields.date(string='Return Date',
-                                        help='The expected date to finish all the transport'),
-             'fleet_vehicle_id': fields.many2one(obj='fleet.vehicle', string='Vehicle', required=True,
-                                              ondelete='restrict'),             
-             'license_plate': fields.char('License Plate', size=64, required=False, store=True),            
-             'internal_number': fields.integer('Number'),
-             'employee_driver_id':fields.many2one(obj='hr.employee', string='Driver', required=True,
-                                               ondelete='restrict'),
-             'employee_helper_id':fields.many2one(obj='hr.employee', string='helper', required=False,
-                                               ondelete='restrict'),
-             'fleet_trailer_id': fields.many2one(obj='fleet.vehicle', string='Trailer',
-                                               ondelete='restrict', required=True),
-             'trailer_license_plate': fields.char(string='Trailer License Plate', size=64, required=False, store=True),
-             'cargo_ids':fields.one2many(obj='sale.order.cargo', fields_id='sale_order_fleet_id', 
-                                         string='Cargo', required=True,
-                                         help=_('All sale order transported cargo')),                                
-                }
-    
+
+    sale_order_id = fields.Many2one('sale.order', ondelete='cascade')
+    sales_date = fields.Date()
+    partner_departure_id = fields.Many2one('res.partner', string='From')
+    partner_destination_id = fields.Many2one('res.partner', string='To')
+    delivery_date = fields.Date(help='The date that will start to transport')
+    return_date = fields.Date(
+        help='The expected date to finish all the transport')
+    fleet_vehicle_id = fields.Many2one(
+        'fleet.vehicle', required=True, ondelete='restrict')
+    license_plate = fields.Char(size=64)
+    internal_number = fields.Integer()
+    employee_driver_id = fields.Many2one(
+        'hr.employee', required=True, ondelete='restrict')
+    employee_helper_id = fields.Many2one('hr.employee', ondelete='restrict')
+    fleet_trailer_id = fields.Many2one(
+        'fleet.vehicle', ondelete='restrict', required=True)
+    trailer_license_plate = fields.Char(size=64)
+    cargo_ids = fields.One2many(
+        'sale.order.cargo', 'sale_order_fleet_id',
+        help='All sale order transported cargo')
+
     def fleet_trailer_id_change(self, cr, uid, ids,fleet_trailer_id):
         result={}
         
@@ -107,30 +91,31 @@ class sale_order_fleet_vehicle(osv.osv):
 #                         ('employee_unique','unique(employee_driver_id,sale_order_id)',
 #                          'A driver must be unique per sale order! Remove the duplicate driver'),]  
          
-sale_order_fleet_vehicle()
+class SaleOrderCargo(models.Model):
 
-class sale_order_cargo(osv.osv):
     _name = 'sale.order.cargo'
+
     _description = 'Transport cargo from a sale order transport service'
-    _columns = {
-            'sale_order_fleet_id':fields.many2one(obj='sale.order.fleet_vehicle', string='Sale Order Vehicle',
-                                            ondelete='cascade', required=True,readonly=True),            
-            'transport_date': fields.date(string='Transport Date', required=True,
-                                          help=_('The day when the product was transported.')),           
-            'cargo_product_id':fields.many2one(obj='product.product', string='Cargo', required=True),                
-            'cargo_docport':fields.char(string='Port Document', size=64, required=False, readonly=False,
-                                        help=_('Associated port document of the transported product if applicable.')),
-            'brand':fields.char('Brand', size=64, required=False, readonly=False,
-                                help=_('Brand of the transported product if applicable.')),
-            'model':fields.char('Model', size=64, required=False, readonly=False,
-                                help=_('Model of the transported product if applicable.')),
-            'cargo_ident':fields.char('Identification', size=64, required=False, readonly=False,
-                                      help=_('Identification of the cargo.Ex:Id,License Plate,Chassi')),
-            'sale_order_id':fields.many2one(obj='sale.order', string='Sale Order', required=True),
-            'transport_from_id': fields.many2one(obj='res.partner', string='From'),
-            'transport_to_id': fields.many2one(obj='res.partner', string='To'),             
-                    }
-                                    
+
+    sale_order_fleet_id = fields.Many2one(
+        'sale.order.fleet_vehicle',  ondelete='cascade', required=True)
+    transport_date = fields.Date(
+        required=True, help='The day when the product was transported.')
+    cargo_product_id = fields.Many2one(
+        'product.product',
+        help='Associated port document of '
+             'the transported product if applicable.')
+    cargo_docport = fields.Char(
+        help='Associated port document of '
+             'the transported product if applicable.')
+    brand = fields.Char(help='Brand of the transported product if applicable.')
+    model = fields.Char(help='Model of the transported product if applicable.')
+    cargo_ident = fields.Char(
+        help='Identification of the cargo.Ex:Id,License Plate,Chassi')
+    sale_order_id = fields.Many2one('sale.order', required=True)
+    transport_from_id = fields.Many2one('res.partner', string='From')
+    transport_to_id = fields.Many2one('res.partner', string='To')
+
     def cargo_id_change(self,cr,uid,ids,cargo_product_id,context):
         
         result={}      
@@ -155,25 +140,23 @@ class sale_order_cargo(osv.osv):
         
         res_id = super(sale_order_cargo, self).copy(cr, uid, _id, default, context)
         return res_id 
-             
-class sale_order(osv.osv):
+
+
+class SaleOrder(models.Model):
+
     _inherit = 'sale.order'
-    #Do not touch _name it must be same as _inherit
-    #_name = 'sale.order'
-    _columns = {
-            'fleet_vehicles_ids':fields.one2many(obj='sale.order.fleet_vehicle',
-                                                 fields_id='sale_order_id',string='Transport Vehicles',
-                                                 required=True),
-            'partner_departure_id':fields.many2one('res.partner', string='From', required=True),           
-            'delivery_date': fields.date('Transport Start',required=True,
-                                         help=_('Expected Transport start date.')),
-            'return_date':fields.date('Transport Finish',required=True,
-                                      help=_('Expected Transport finish date.')),
-            'cargo_ids':fields.one2many(obj='sale.order.cargo', fields_id='sale_order_id', 
-                                        string='Cargo Manifest', required=False,
-                                        help=_('All transported cargo manifest.')),             
-                    }
-    
+
+    fleet_vehicles_ids = fields.One2many(
+        'sale.order.fleet_vehicle', 'sale_order_id', required=True)
+    partner_departure_id = fields.Many2one('res.partner', required=True)
+    delivery_date = fields.Date('Transport Start', required=True,
+                                help='Expected Transport start date.')
+    return_date = fields.Date('Transport Finish', required=True,
+                              help='Expected Transport finish date.')
+    cargo_ids = fields.One2many('sale.order.cargo', 'sale_order_id',
+                                string='Cargo Manifest',
+                                help='All transported cargo manifest.')
+
     def _validate_data(self, cr, uid, ids):
         for dates in self.browse(cr,uid,ids):
             if dates.return_date < dates.delivery_date:
@@ -259,30 +242,22 @@ class sale_order(osv.osv):
                     (_validate_cargo_products,"Error: There is a cargo product that doesn't belongs to the sale order line!",['cargo_ids','order_line']),
                     (_validate_cargo_products_qty,"Error: In products quantities",['cargo_ids','order_line'])]
 
-sale_order()
- 
-class fleet_vehicle(osv.osv):
-    _inherit = 'fleet.vehicle' 
-    #Do not touch _name it must be same as _inherit
-    #_name = 'fleet.vehicle'
-    _columns = {
-            'sales_order_ids':fields.one2many(obj='sale.order.fleet_vehicle',
-                                              fields_id='fleet_vehicle_id', string='Vehicle Sales'),
-            'internal_number': fields.integer(string='Internal Number'),
-            'is_trailer':fields.boolean(string='Is Trailer',required=False),
-                    }
-fleet_vehicle()
 
- 
-class hr_employee_driver_sales(osv.osv):
-    _inherit = 'hr.employee' 
-    #Do not touch _name it must be same as _inherit
-    #_name = 'hr.employee'
-      
-    _columns = {
-            'sales_order_ids':fields.one2many(obj='sale.order.fleet_vehicle',
-                                               fields_id='employee_driver_id', string='Driver Sales'),
-            'is_driver':fields.boolean('Is Driver', required=False),
-                    }        
-        
-hr_employee_driver_sales()
+class FleetVehicle(models.Model):
+
+    _inherit = 'fleet.vehicle'
+
+    sales_order_ids = fields.One2many(
+        'sale.order.fleet_vehicle', 'fleet_vehicle_id', string='Vehicle Sales')
+    internal_number = fields.Integer()
+    is_trailer = fields.Boolean()
+
+
+class HrEmployee(models.Model):
+
+    _inherit = 'hr.employee'
+
+    sales_order_ids = fields.One2many(
+        'sale.order.fleet_vehicle', 'employee_driver_id',
+        string='Driver Sales')
+    is_driver = fields.Boolean()
