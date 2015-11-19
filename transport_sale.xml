@@ -180,12 +180,12 @@
 			</field>
 		</record>
 
-		<report id="sale_order_transport_order" model="sale.order"
-			name="sale.order.transport_order" rml="sale_order_fleet_vehicle/report/transport_order.rml"
-			string="Transport Order" />
-				
-		<report id="sale_order_transport_manifest" model="sale.order"
-			name="sale.order.transport_manifest" rml="sale_order_fleet_vehicle/report/transport_manifest.rml"
-			string="Transport Manifest" />
+		<!--<report id="sale_order_transport_order" model="sale.order"-->
+			<!--name="sale.order.transport_order" rml="sale_order_fleet_vehicle/report/transport_order.rml"-->
+			<!--string="Transport Order" />-->
+				<!-- -->
+		<!--<report id="sale_order_transport_manifest" model="sale.order"-->
+			<!--name="sale.order.transport_manifest" rml="sale_order_fleet_vehicle/report/transport_manifest.rml"-->
+			<!--string="Transport Manifest" />-->
 	</data>
 </openerp>
