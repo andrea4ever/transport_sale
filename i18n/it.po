@@ -330,7 +330,7 @@ msgstr "Trasporto"
 #. module: transport_sale
 #: field:sale.order,return_date:0
 msgid "Transport Finish"
-msgstr "Data di Fine Trasporto"
+msgstr "Data Entro"
 
 #. module: transport_sale
 #: view:sale.order:transport_sale.inherited_sale_order_form_view
