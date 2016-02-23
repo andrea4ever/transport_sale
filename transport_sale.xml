@@ -10,7 +10,7 @@
 				<form string="Transport" version="7.0">
 					<group colspan="4" col="4">
 						<group colspan="2" string="Vehicle">							
-							<field name="fleet_vehicle_id" required="1" domain="[('is_trailer','=',0)]" />
+							<field name="fleet_vehicle_id" domain="[('is_trailer','=',0)]" />
 							<field name="internal_number"  />
 							<field name="license_plate" />
 						</group>
