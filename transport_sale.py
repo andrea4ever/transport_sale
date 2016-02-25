@@ -20,7 +20,7 @@ class SaleOrderFleetVehicle(models.Model):
     return_date = fields.Date(
         help='The expected date to finish all the transport')
     fleet_vehicle_id = fields.Many2one(
-        'fleet.vehicle', required=True, ondelete='restrict')
+        'fleet.vehicle', ondelete='restrict')
     license_plate = fields.Char(size=64)
     internal_number = fields.Integer()
     employee_driver_id = fields.Many2one(
