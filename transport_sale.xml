@@ -126,6 +126,18 @@
                         </tree>
                     </field>
                 </page>
+                <page string="Transport Helper Driver">
+                    <field name="sales_order_helper_ids" readonly="1">
+                        <tree editable="bottom">
+                            <field name="sale_order_id" />
+                            <field name="sales_date" />
+                            <field name="partner_departure_id" />
+                            <field name="partner_destination_id" />
+                            <field name="delivery_date" />
+                            <field name="return_date" />
+                        </tree>
+                    </field>
+                </page>
             </xpath>
         </field>
     </record>
