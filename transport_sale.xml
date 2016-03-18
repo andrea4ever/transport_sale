@@ -85,20 +85,61 @@
                  <field name="is_trailer" string="Is Trailer"
                     help="Mark this if the vehicle is a trailer"/>
             </xpath>
+            <xpath expr="/form/sheet/group/group[@string='Additional Properties']"
+                position="replace"></xpath>
+            <xpath expr="/form/sheet/group/group[@string='Engine Options']"
+                position="replace"></xpath>
             <xpath expr="/form/sheet/group[@string='General Properties']"
                 position="after">
-                <group string="Transport sales">
-                    <field name="sales_order_ids" readonly="1">
-                        <tree editable="bottom">
-                            <field name="sale_order_id" />
-                            <field name="sales_date" />
-                            <field name="partner_departure_id" />
-                            <field name="partner_destination_id" />
-                            <field name="delivery_date" />
-                            <field name="return_date" />
-                        </tree>
-                    </field>
-                </group>
+                <notebook>
+                    <page string="Transport Sale Vehicle">
+                        <field name="sales_order_ids" readonly="1">
+                            <tree editable="bottom">
+                                <field name="sale_order_id" />
+                                <field name="sales_date" />
+                                <field name="partner_departure_id" />
+                                <field name="partner_destination_id" />
+                                <field name="delivery_date" />
+                                <field name="return_date" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Transport Sale Trailer">
+                        <field name="sales_order_trailer_ids" readonly="1">
+                            <tree editable="bottom">
+                                <field name="sale_order_id" />
+                                <field name="sales_date" />
+                                <field name="partner_departure_id" />
+                                <field name="partner_destination_id" />
+                                <field name="delivery_date" />
+                                <field name="return_date" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Additional Properties">
+                        <group>
+                            <field name="seats"/>
+                            <field name="doors"/>
+                            <field name="color"/>
+                        </group>
+                    </page>
+                    <page string="Engine Options">
+                        <group>
+                            <field name="transmission"/>
+                            <field name="fuel_type"/>
+                            <label for="co2"/>
+                            <div>
+                                <field name="co2" class="oe_inline"/> g/km
+                            </div>
+                            <field name="horsepower"/>
+                            <field name="horsepower_tax"/>
+                            <label for="power"/>
+                            <div>
+                                <field name="power" class="oe_inline"/> kW
+                            </div>
+                        </group>
+                    </page>
+                </notebook>
             </xpath>
         </field>
     </record>
