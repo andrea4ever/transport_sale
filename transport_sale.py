@@ -203,4 +203,7 @@ class HrEmployee(models.Model):
     sales_order_ids = fields.One2many(
         'sale.order.fleet_vehicle', 'employee_driver_id',
         string='Driver Sales')
+    sales_order_helper_ids = fields.One2many(
+        'sale.order.fleet_vehicle', 'employee_helper_id',
+        string='Driver Helper Sales')
     is_driver = fields.Boolean()
