@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-05 09:24+0000\n"
-"PO-Revision-Date: 2015-12-05 09:24+0000\n"
+"POT-Creation-Date: 2016-03-18 11:52+0000\n"
+"PO-Revision-Date: 2016-03-18 11:52+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: transport_sale
+#: view:fleet.vehicle:transport_sale.inherited_fleet_vehicle_form_view
+msgid "Additional Properties"
+msgstr "Proprietà aggiuntive"
 
 #. module: transport_sale
 #: help:sale.order.fleet_vehicle,cargo_ids:0
@@ -99,6 +104,11 @@ msgid "Driver"
 msgstr "Autista"
 
 #. module: transport_sale
+#: field:hr.employee,sales_order_helper_ids:0
+msgid "Driver Helper Sales"
+msgstr "Driver Helper Sales"
+
+#. module: transport_sale
 #: field:hr.employee,sales_order_ids:0
 msgid "Driver Sales"
 msgstr "Ordini Autista"
@@ -117,6 +127,11 @@ msgstr "Dipendente/Autista"
 #: field:sale.order.fleet_vehicle,employee_helper_id:0
 msgid "Employee helper id"
 msgstr "Dipendente Seconda Guida"
+
+#. module: transport_sale
+#: view:fleet.vehicle:transport_sale.inherited_fleet_vehicle_form_view
+msgid "Engine Options"
+msgstr "Opzioni Motore"
 
 #. module: transport_sale
 #: code:addons/transport_sale/transport_sale.py:115
@@ -318,6 +333,11 @@ msgid "Trailer"
 msgstr "Rimorchio"
 
 #. module: transport_sale
+#: field:fleet.vehicle,sales_order_trailer_ids:0
+msgid "Trailer Sales"
+msgstr "Ordini Rimorchio"
+
+#. module: transport_sale
 #: field:sale.order.fleet_vehicle,trailer_license_plate:0
 msgid "Trailer license plate"
 msgstr "Numero di Licenza rimorchio"
@@ -333,19 +353,24 @@ msgid "Transport Finish"
 msgstr "Data Entro"
 
 #. module: transport_sale
+#: view:hr.employee:transport_sale.inherited_employee_form_view
+msgid "Transport Helper Driver"
+msgstr "Trasporti Secondo Autista"
+
+#. module: transport_sale
 #: view:sale.order:transport_sale.inherited_sale_order_form_view
 msgid "Transport Information"
 msgstr "Informazioni di Trasporto"
 
 #. module: transport_sale
-#: model:ir.actions.report.xml,name:transport_sale.sale_order_transport_manifest
-msgid "Transport Manifest"
-msgstr "Manifesto di Trasporto"
+#: view:fleet.vehicle:transport_sale.inherited_fleet_vehicle_form_view
+msgid "Transport Sale Trailer"
+msgstr "Ordini Rimorchio"
 
 #. module: transport_sale
-#: model:ir.actions.report.xml,name:transport_sale.sale_order_transport_order
-msgid "Transport Order"
-msgstr "Ordine di Trasporto"
+#: view:fleet.vehicle:transport_sale.inherited_fleet_vehicle_form_view
+msgid "Transport Sale Vehicle"
+msgstr "Ordini Veicolo"
 
 #. module: transport_sale
 #: view:hr.employee:transport_sale.inherited_employee_form_view
@@ -368,11 +393,6 @@ msgid "Transport date"
 msgstr "Data di Trasporto"
 
 #. module: transport_sale
-#: view:fleet.vehicle:transport_sale.inherited_fleet_vehicle_form_view
-msgid "Transport sales"
-msgstr "Ordini Trasportati"
-
-#. module: transport_sale
 #: view:sale.order.fleet_vehicle:transport_sale.sale_order_fleet_vehicle_form_view
 msgid "Vehicle"
 msgstr "Veicolo"
@@ -381,3 +401,9 @@ msgstr "Veicolo"
 #: field:fleet.vehicle,sales_order_ids:0
 msgid "Vehicle Sales"
 msgstr "Ordini Veicolo"
+
+#. module: transport_sale
+#: view:fleet.vehicle:transport_sale.inherited_fleet_vehicle_form_view
+msgid "g/km"
+msgstr "g/km"
+

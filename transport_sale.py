@@ -193,6 +193,8 @@ class FleetVehicle(models.Model):
 
     sales_order_ids = fields.One2many(
         'sale.order.fleet_vehicle', 'fleet_vehicle_id', string='Vehicle Sales')
+    sales_order_trailer_ids = fields.One2many(
+        'sale.order.fleet_vehicle', 'fleet_trailer_id', string='Trailer Sales')
     internal_number = fields.Integer()
     is_trailer = fields.Boolean()
 
@@ -203,4 +205,7 @@ class HrEmployee(models.Model):
     sales_order_ids = fields.One2many(
         'sale.order.fleet_vehicle', 'employee_driver_id',
         string='Driver Sales')
+    sales_order_helper_ids = fields.One2many(
+        'sale.order.fleet_vehicle', 'employee_helper_id',
+        string='Driver Helper Sales')
     is_driver = fields.Boolean()
