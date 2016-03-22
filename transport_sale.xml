@@ -2,6 +2,57 @@
 <openerp>
 <data>
 
+    <!-- Sale Order Fleet Vehicle View -->
+    <record model="ir.ui.view" id="sale_order_fleet_vehicle_form_view">
+        <field name="name">Sale Order Fleet Vehicle Form View</field>
+        <field name="model">sale.order.fleet_vehicle</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Transport" version="7.0">
+                <group colspan="4" col="4">
+                    <group colspan="2" string="Vehicle">
+                        <field name="fleet_vehicle_id" required="1" domain="[('is_trailer','=',0)]" />
+                        <field name="internal_number"  />
+                        <field name="license_plate" />
+                    </group>
+                    <group colspan="2" string="Driver">
+                        <field name="employee_driver_id" domain="[('is_driver','=', 1)]" required="1" />
+                        <field name="employee_helper_id" required="0" />
+                    </group>
+                    <group colspan="2" string="Trailer">
+                        <field name="fleet_trailer_id" domain="[('is_trailer','=',1)]"/>
+                        <field name="trailer_license_plate" />
+                    </group>
+                    <group colspan="2" string="Client Transport" >
+                        <field name="partner_departure_id" />
+                        <field name="partner_destination_id" />
+                    </group>
+                    <group colspan="6" col="6" string="Sale and Transport Dates">
+                        <field name="sales_date"/>
+                        <field name="delivery_date" />
+                        <field name="return_date" />
+                    </group>
+                </group>
+                <group col="4" string="Manifest">
+                    <field name="cargo_ids" required="1" nolabel="1"
+                           context="{'sale_order_id':sale_order_id}">
+                        <tree editable="bottom">
+                            <field name="sale_order_id" invisible="1"/>
+                            <field name="cargo_product_id" domain="[('type','=','service')]"/>
+                            <field name="cargo_ident"/>
+                            <field name="cargo_docport"/>
+                            <field name="brand"/>
+                            <field name="model"/>
+                            <field name="transport_from_id"/>
+                            <field name="transport_to_id"/>
+                            <field name="transport_date"/>
+                        </tree>
+                    </field>
+                </group>
+            </form>
+        </field>
+    </record>
+
     <!--Sales order Vehicle form -->
     <record model="ir.ui.view" id="inherited_sale_order_form_view">
         <field name="name">Inherited Sale Order Form View</field>
