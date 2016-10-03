@@ -81,8 +81,7 @@
                     <field name="fleet_vehicles_ids"
                         context="{'sale_order_id':active_id,
                         'search_default_customer':1,
-                        'show_address': 1,}"
-                        attrs="{'required':[('state','in',['progress','manual','done'])]}">
+                        'show_address': 1,}">
                         <tree>
                             <field name="fleet_vehicle_id"/>
                             <field name="internal_number" />

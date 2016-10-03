@@ -97,7 +97,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     fleet_vehicles_ids = fields.One2many(
-        'sale.order.fleet_vehicle', 'sale_order_id', required=True)
+        'sale.order.fleet_vehicle', 'sale_order_id')
     partner_departure_id = fields.Many2one('res.partner', required=True)
     delivery_date = fields.Date('Transport Start', required=True,
                                 help='Expected Transport start date.')
